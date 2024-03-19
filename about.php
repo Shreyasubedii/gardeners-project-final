@@ -1,6 +1,6 @@
 <?php
 
-$user_id = "";
+// $user_id = "";
 @include 'config.php';
 session_start();
 $user_id = "";

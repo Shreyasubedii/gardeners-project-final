@@ -202,7 +202,7 @@ $user_id = "";
             <h3>what we provide?</h3>
             <p>Our extensive inventory features everything from rare and exotic plants to essential gardening tools and supplies, sourced from trusted suppliers and growers.
                  Additionally, we offer valuable resources, informative guides, and inspirational content to empower and inspire garden enthusiasts at every level.</p>
-            <a href="contact.php" class="btn">contact us</a>
+            <a href="guide.php" class="btn">Seasonal gardening tips</a>
         </div>
 
         <div class="image">
@@ -222,7 +222,7 @@ $user_id = "";
             <p> We are gardeners, with years of experience and expertise in the industry, our knowledgeable staff is committed to delivering exceptional service, expert advice, and
                  unparalleled support to our valued customers. Whether you're embarking on a gardening journey or seeking guidance, trust to be your trusted partner
                   every step of the way.</p>
-            <a href="#reviews" class="btn">clients reviews</a>
+            <a href="contact.php" class="btn">contact us</a>
         </div>
 
     </div>

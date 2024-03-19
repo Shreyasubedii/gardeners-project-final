@@ -1134,4 +1134,57 @@ section{
 
 
 
+/* css for guide part  */
+/* Styles for the section part */
 
+
+
+.guide {
+   background-color: #D8F0E4;
+   text-align: left;
+   padding: 20px;
+   margin: 0 auto;
+   max-width: 100;
+   border-radius: 5px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.guide img {
+   max-width: 40%;
+   display: block;
+   margin: 0 auto;
+   height: auto;
+}
+.guide h1{
+   text-align: center;
+   font-size: 3rem;
+}
+
+.guide h2 {
+   text-align: left;
+   margin-bottom : 20px;
+}
+
+.guide h3 {
+   margin-top: 30px;
+   font-size: 2rem;
+}
+
+.guide ol {
+   list-style-type: decimal;
+   margin-left: 20px;
+   text-align: left;
+   font-size: 2rem;
+}
+
+.guide ul {
+   list-style-type: disc;
+   margin-left: 20px;
+   font-size: 2rem;
+}
+/* Responsive styles */
+@media (max-width: 768px) {
+   .guide {
+       padding: 10px;
+   }
+}
