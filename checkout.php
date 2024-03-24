@@ -16,7 +16,8 @@ if(isset($_POST['order'])){
     $number = mysqli_real_escape_string($conn, $_POST['number']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $method = mysqli_real_escape_string($conn, $_POST['method']);
-    $address = mysqli_real_escape_string($conn, 'street no. '. $_POST['street'].', '. $_POST['street'].', '. $_POST['city'].', '. $_POST['country'].' - '. $_POST['pin_code']);
+    $address = mysqli_real_escape_string($conn, '   '. $_POST['fulladdress'].', '. $_POST['house_number'].', '. $_POST['city'].' ');
+    // removed from above line 
     $placed_on = date('d-M-Y');
 
     $cart_total = 0;
@@ -50,116 +51,121 @@ if(isset($_POST['order'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>checkout</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkout</title>
 
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-   <!-- custom admin css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+    <!-- custom admin css file link  -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
-   
-<?php @include 'header.php'; ?>
 
-<section class="heading">
-    <h3>checkout order</h3>
-    <p> <a href="home.php">home</a> / checkout </p>
-</section>
+    <?php @include 'header.php'; ?>
 
-<section class="display-order">
-    <?php
+    <section class="heading">
+        <h3>checkout order</h3>
+        <p> <a href="home.php">home</a> / checkout </p>
+    </section>
+
+    <section class="display-order">
+        <?php
         $grand_total = 0;
         $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
         if(mysqli_num_rows($select_cart) > 0){
             while($fetch_cart = mysqli_fetch_assoc($select_cart)){
             $total_price = ($fetch_cart['price'] * $fetch_cart['quantity']);
             $grand_total += $total_price;
-    ?>    
-    <p> <?php echo $fetch_cart['name'] ?> <span>(<?php echo 'Rs.'.$fetch_cart['price'].'/-'.' x '.$fetch_cart['quantity']  ?>)</span> </p>
-    <?php
+    ?>
+        <p> <?php echo $fetch_cart['name'] ?>
+            <span>(<?php echo 'Rs.'.$fetch_cart['price'].'/-'.' x '.$fetch_cart['quantity']  ?>)</span>
+        </p>
+        <?php
         }
         }else{
             echo '<p class="empty">your cart is empty</p>';
         }
     ?>
-    <div class="grand-total">grand total : <span>Rs.<?php echo $grand_total; ?>/-</span></div>
-</section>
+        <div class="grand-total">grand total : <span>Rs.<?php echo $grand_total; ?>/-</span></div>
+    </section>
 
-<section class="checkout">
+    <section class="checkout">
 
-    <form action="" method="POST">
+        <form action="" method="POST">
 
-        <h3>place your order</h3>
+            <h3>place your order</h3>
 
-        <div class="flex">
-            <div class="inputBox">
-                <span>your name :</span>
-                <input type="text" name="name" placeholder="enter your name" require>
-            </div>
-            <div class="inputBox">
-                <span>your number :</span>
-                <input type="number" name="number" min="0" placeholder="enter your number" require>
-                
-            </div>
-            <div class="inputBox">
-                <span>your email :</span>
-                <input type="email" name="email" placeholder="enter your email" require>
-            </div>
-            <div class="inputBox">
-                <span>payment method :</span>
-                <select name="method">
-                    <option value="cash on delivery">cash on delivery</option>
-                    <!-- <option value="credit card">credit card</option>
+            <div class="flex">
+                <div class="inputBox">
+                    <span>your name :</span>
+                    <input type="text" name="name" placeholder="enter your name" required>
+                </div>
+                <div class="inputBox">
+                    <span>your number :</span>
+                    <input type="number" name="number" min="0" placeholder="enter your number" required>
+
+                </div>
+                <div class="inputBox">
+                    <span>your email :</span>
+                    <input type="email" name="email" placeholder="enter your email" required>
+                </div>
+                <div class="inputBox">
+                    <span>payment method :</span>
+                    <select name="method">
+                        <option value="cash on delivery">cash on delivery</option>
+                        <!-- <option value="credit card">credit card</option>
                     <option value="paypal">e-sewa</option>
                     <option value="paytm">fone pay</option> -->
-                </select>
+                    </select>
+                </div>
+                <div class="inputBox">
+                    <span>Full address :</span>
+                    <input type="text" name="fulladdress" placeholder="Put your address" required>
+                </div>
+                <div class="inputBox">
+                    <span>House number :</span>
+                    <input type="text" name="house_number" placeholder="e.g. House number " required>
+                </div>
+                <div class="inputBox">
+                    <span>city :</span>
+                    <input type="text" name="city" placeholder="e.g. kathmandu" required>
+                </div>
+                <!-- <div class="inputBox">
+                    <span>state :</span>
+                    <input type="text" name="state" placeholder="e.g. ">
+                </div> -->
+                <!-- <div class="inputBox">
+                    <span>country :</span>
+                    <input type="text" name="country" placeholder="e.g. nepal">
+                </div> -->
+                <!-- <div class="inputBox">
+                    <span>pin code :</span>
+                    <input type="number" min="0" name="pin_code" placeholder="e.g. 123456">
+                </div> -->
             </div>
-            <div class="inputBox">
-                <span>address line 01 :</span>
-                <input type="text" name="street" placeholder="e.g. street no.">
-            </div>
-            <div class="inputBox">
-                <span>address line 02 :</span>
-                <input type="text" name="tole name" placeholder="e.g. mahalakshmi tole  ">
-            </div>
-            <div class="inputBox">
-                <span>city :</span>
-                <input type="text" name="city" placeholder="e.g. kathmandu">
-            </div>
-            <div class="inputBox">
-                <span>state :</span>
-                <input type="text" name="state" placeholder="e.g. maharashtra">
-            </div>
-            <div class="inputBox">
-                <span>country :</span>
-                <input type="text" name="country" placeholder="e.g. india">
-            </div>
-            <div class="inputBox">
-                <span>pin code :</span>
-                <input type="number" min="0" name="pin_code" placeholder="e.g. 123456">
-            </div>
-        </div>
 
-        <input type="submit" name="order" value="order now" class="btn">
+            <input type="submit" name="order" value="order now" class="btn">
 
-    </form>
+        </form>
 
-</section>
+    </section>
 
 
 
 
 
 
-<?php @include 'footer.php'; ?>
+    <?php @include 'footer.php'; ?>
 
-<script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
+
 </html>

@@ -2,6 +2,7 @@
 
 :root{
    --pink:#e84393;
+   --darkgreen: #387044;
    --red:#c0392b;
    --orange:#f39c12;
    --black:#333;
@@ -128,7 +129,7 @@ section{
 }
 
 .option-btn{
-   background-color: var(--orange);
+   background-color: var(--darkgreen);
 }
 
 .btn:hover,

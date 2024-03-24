@@ -22,6 +22,7 @@ if(isset($_POST['update_product'])){
    $image = $_FILES['image']['name'];
    $image_size = $_FILES['image']['size'];
    $image_tmp_name = $_FILES['image']['tmp_name'];
+   //folter
    $image_folter = 'uploaded_img/'.$image;
    $old_image = $_POST['update_p_image'];
    
@@ -44,26 +45,28 @@ if(isset($_POST['update_product'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>update product</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update product</title>
 
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-   <!-- custom admin css file link  -->
-   <link rel="stylesheet" href="css/admin_style.css">
+    <!-- custom admin css file link  -->
+    <link rel="stylesheet" href="css/admin_style.css">
 
 </head>
+
 <body>
-   
-<?php @include 'admin_header.php'; ?>
 
-<section class="update-product">
+    <?php @include 'admin_header.php'; ?>
 
-<?php
+    <section class="update-product">
+
+        <?php
 
    $update_id = $_GET['update'];
    $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE id = '$update_id'") or die('query failed');
@@ -71,26 +74,29 @@ if(isset($_POST['update_product'])){
       while($fetch_products = mysqli_fetch_assoc($select_products)){
 ?>
 
-<form action="" method="post" enctype="multipart/form-data">
-   <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" class="image"  alt="">
-   <input type="hidden" value="<?php echo $fetch_products['id']; ?>" name="update_p_id">
-   <input type="hidden" value="<?php echo $fetch_products['image']; ?>" name="update_p_image">
-   <input type="text" class="box" value="<?php echo $fetch_products['name']; ?>" required placeholder="update product name" name="name">
-   <input type="number" min="0" class="box" value="<?php echo $fetch_products['price']; ?>" required placeholder="update product price" name="price">
-   <textarea name="details" class="box" required placeholder="update product details" cols="30" rows="10"><?php echo $fetch_products['details']; ?></textarea>
-   <input type="file" accept="image/jpg, image/jpeg, image/png" class="box" name="image">
-   <input type="submit" value="update product" name="update_product" class="btn">
-   <a href="admin_products.php" class="option-btn">go back</a>
-</form>
+        <form action="" method="post" enctype="multipart/form-data">
+            <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" class="image" alt="">
+            <input type="hidden" value="<?php echo $fetch_products['id']; ?>" name="update_p_id">
+            <input type="hidden" value="<?php echo $fetch_products['image']; ?>" name="update_p_image">
+            <input type="text" class="box" value="<?php echo $fetch_products['name']; ?>" required
+                placeholder="update product name" name="name">
+            <input type="number" min="0" class="box" value="<?php echo $fetch_products['price']; ?>" required
+                placeholder="update product price" name="price">
+            <textarea name="details" class="box" required placeholder="update product details" cols="30"
+                rows="10"><?php echo $fetch_products['details']; ?></textarea>
+            <input type="file" accept="image/jpg, image/jpeg, image/png" class="box" name="image">
+            <input type="submit" value="update product" name="update_product" class="btn">
+            <a href="admin_products.php" class="option-btn">go back</a>
+        </form>
 
-<?php
+        <?php
       }
    }else{
       echo '<p class="empty">no update product select</p>';
    }
 ?>
 
-</section>
+    </section>
 
 
 
@@ -104,7 +110,8 @@ if(isset($_POST['update_product'])){
 
 
 
-<script src="js/admin_script.js"></script>
+    <script src="js/admin_script.js"></script>
 
 </body>
+
 </html>
