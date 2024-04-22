@@ -80,7 +80,7 @@ if(isset($message)){
         <form action="" method="post">
             <h3>register now</h3>
 
-            <p><span class="mandatory">*</span> represents mandatory fields</p>
+            <p><span class="mandatory">*</span> represents mandatory field</p>
 
             <input type=" text" name="name" class="box" placeholder="enter your username *" placeholder="*" required>
             <input type=" email" name="email" class="box" placeholder="enter your email *" required>

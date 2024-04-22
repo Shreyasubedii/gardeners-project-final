@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
    $filter_email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
    $email = mysqli_real_escape_string($conn, $filter_email);
    $filter_pass = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
-   $pass = mysqli_real_escape_string($conn, md5($filter_pass));
+   $pass = mysqli_real_escape_string($conn, ($filter_pass));
 
    $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email' AND password = '$pass'") or die('query failed');
 
@@ -46,22 +46,24 @@ if(isset($_POST['submit'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
 
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
 
-<?php
+    <?php
 if(isset($message)){
    foreach($message as $message){
       echo '
@@ -73,18 +75,19 @@ if(isset($message)){
    }
 }
 ?>
-   
-<section class="form-container">
 
-   <form action="" method="post">
-      <h3>login now</h3>
-      <input type="email" name="email" class="box" placeholder="enter your email" required>
-      <input type="password" name="pass" class="box" placeholder="enter your password" required>
-      <input type="submit" class="btn" name="submit" value="login now">
-      <p>don't have an account? <a href="register.php">register now</a></p>
-   </form>
+    <section class="form-container">
 
-</section>
+        <form action="" method="post">
+            <h3>login now</h3>
+            <input type="email" name="email" class="box" placeholder="enter your email" required>
+            <input type="password" name="pass" class="box" placeholder="enter your password" required>
+            <input type="submit" class="btn" name="submit" value="login now">
+            <p>don't have an account? <a href="register.php">register now</a></p>
+        </form>
+
+    </section>
 
 </body>
+
 </html>

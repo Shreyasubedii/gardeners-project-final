@@ -11,18 +11,29 @@ if(!isset($user_id)){
 };
 
 if(isset($_POST['order'])){
-
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $number = mysqli_real_escape_string($conn, $_POST['number']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $method = mysqli_real_escape_string($conn, $_POST['method']);
     $address = mysqli_real_escape_string($conn, '   '. $_POST['fulladdress'].', '. $_POST['house_number'].', '. $_POST['city'].' ');
-    // removed from above line 
+
     $placed_on = date('d-M-Y');
 
     $cart_total = 0;
     $cart_products[] = '';
 
+    if(isset($_POST['number'])){ 
+        $number = $_POST['number']; 
+        
+        if(!preg_match('/^\d{10}$/', $number)|| !str_starts_with($number, '9')){
+            $message[] = 'Please enter a valid 10-digit number starting with 9.';
+        }
+     }
+    //  else {
+    //     $message[] = 'Phone number is required';
+    //  }
+
+    
     $cart_query = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
     if(mysqli_num_rows($cart_query) > 0){
         while($cart_item = mysqli_fetch_assoc($cart_query)){
@@ -46,6 +57,10 @@ if(isset($_POST['order'])){
         $message[] = 'order placed successfully!';
     }
 }
+
+// else{
+//     $message[] = 'Phone number is required';
+// }
 
 ?>
 
@@ -110,19 +125,25 @@ if(isset($_POST['order'])){
                 <div class="inputBox">
                     <span>your number :</span>
                     <input type="number" name="number" min="0" placeholder="enter your number" required>
+                    <!-- updated  -->
 
+                    <!-- till here  -->
                 </div>
                 <div class="inputBox">
                     <span>your email :</span>
                     <input type="email" name="email" placeholder="enter your email" required>
+                    <!-- updated  -->
+                    <php? if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                        $message[]='Please enter a valid email address.' ; } ?>
+                        <!-- till here  -->
                 </div>
                 <div class="inputBox">
                     <span>payment method :</span>
                     <select name="method">
                         <option value="cash on delivery">cash on delivery</option>
-                        <!-- <option value="credit card">credit card</option>
-                    <option value="paypal">e-sewa</option>
-                    <option value="paytm">fone pay</option> -->
+                        <option value="khalti">khalti</option>
+                        <!-- <option value="khalti">e-khalti</option>
+                        <option value="paytm">fone pay</option> -->
                     </select>
                 </div>
                 <div class="inputBox">
@@ -132,6 +153,8 @@ if(isset($_POST['order'])){
                 <div class="inputBox">
                     <span>House number :</span>
                     <input type="text" name="house_number" placeholder="e.g. House number " required>
+
+
                 </div>
                 <div class="inputBox">
                     <span>city :</span>
