@@ -25,9 +25,9 @@ if(isset($_POST['order'])){
     if(isset($_POST['number'])){ 
         $number = $_POST['number']; 
         
-        if(!preg_match('/^\d{10}$/', $number)|| !str_starts_with($number, '9')){
-            $message[] = 'Please enter a valid 10-digit number starting with 9.';
-        }
+        // if(!preg_match('/^\d{10}$/', $number)|| !str_starts_with($number, '9')){
+        //     $message[] = 'Please enter a valid 10-digit number starting with 9.';
+        // }
      }
     //  else {
     //     $message[] = 'Phone number is required';
@@ -49,7 +49,11 @@ if(isset($_POST['order'])){
 
     if($cart_total == 0){
         $message[] = 'your cart is empty!';
-    }elseif(mysqli_num_rows($order_query) > 0){
+    }
+    if (!preg_match('/^9\d{9}$/', $number)) {
+        $message[] = 'Please enter a valid 10-digit number starting with 9.';
+    }
+    elseif(mysqli_num_rows($order_query) > 0){
         $message[] = 'order placed already!';
     }else{
         mysqli_query($conn, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$cart_total', '$placed_on')") or die('query failed');

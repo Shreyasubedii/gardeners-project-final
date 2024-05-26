@@ -10,6 +10,8 @@ if(isset($_POST['submit'])){
    $email = mysqli_real_escape_string($conn, $filter_email);
    $filter_pass = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
    $pass = mysqli_real_escape_string($conn, $filter_pass);
+
+   
    // $filter_cpass = filter_var($_POST['cpass'], FILTER_SANITIZE_STRING);
    // $cpass = mysqli_real_escape_string($conn, ($filter_cpass));
    
@@ -28,7 +30,8 @@ if(isset($_POST['submit'])){
    // if ($pass != $cpass){
    //    $message[] = 'confirm password not matched!';
    // }else{
-         mysqli_query($conn, "INSERT INTO `users`(name, email, password) VALUES('$name', '$email', '$pass')") or die('query failed');
+   
+         mysqli_query($conn, "INSERT INTO `users`(name, email, password ) VALUES('$name', '$email', '$pass')") or die('query failed');
          $message[] = 'registered successfully!';
          header('location:login.php');
       }
